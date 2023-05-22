@@ -5,7 +5,7 @@ public:
         
         int counter = 0;
         int columns[50] {0}, rows[50] {0}; //max value of m and n is 50
-        //int columns[50] = {0}, rows[50] = {0}; //This makes the code make more memory
+        //int columns[50] = {0}, rows[50] = {0}; //This line has more SC (Space complexity)
 
         for (auto index : indices) {
             
@@ -17,7 +17,7 @@ public:
         {
             for (int j = 0; j<n; j++)
             {
-                if((rows[i] + columns[j])%2 != 0) counter++;
+                if((rows[i] + columns[j]) & 1) counter++;
             }
         }
 
