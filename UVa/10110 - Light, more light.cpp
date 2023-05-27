@@ -1,4 +1,3 @@
-//Link: https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1051
 //TC: O(n)
 //MC: O(1)
 #include <math.h>
