@@ -7,22 +7,23 @@
 
 using namespace std;
 
-void DepthFirstSearch(vector<int>& start, vector<vector<char>>& stones, int Length, int Width, string word, int Location, vector<string>& PathWords) {
+
+void DepthFirstSearch(pair<int,int>& start, vector<vector<char>>& stones, int Length, int Width, string word, int Location, vector<string>& PathWords) {
 
     int DeltaX[] = { 0, -1, 0 };
     int DeltaY[] = { -1, 0, 1 };
 
     for (int i = 0; i < 3; i++) {
-        int NewRow = DeltaX[i] + start[0];
-        int NewCol = DeltaY[i] + start[1];
+        int NewRow = DeltaX[i] + start.first;
+        int NewCol = DeltaY[i] + start.second;
 
         if (NewRow < 0 || NewRow >= Length || NewCol < 0 || NewCol >= Width)
             continue;
 
         if (stones[NewRow][NewCol] == word[Location])
         {
-            start[0] = NewRow;
-            start[1] = NewCol;
+            start.first = NewRow;
+            start.second = NewCol;
 
             if (i == 0)
                 PathWords.push_back("left");
@@ -37,7 +38,7 @@ void DepthFirstSearch(vector<int>& start, vector<vector<char>>& stones, int Leng
 }
 
 
-void FindPath(vector<int>& start, vector<vector<char>>& stones, int Length, int Width, vector<string>& PathWords) {
+void FindPath(pair<int,int>& start, vector<vector<char>>& stones, int Length, int Width, vector<string>& PathWords) {
 
     string word = "IEHOVA#";
     int Location = 0;
@@ -55,7 +56,8 @@ int main() {
     int NumberOfTestCases, Length, Width;
     cin >> NumberOfTestCases;
 
-    vector<int> start(2);
+    pair<int,int> start;
+    vector<string> PathWords;
 
     while (NumberOfTestCases) {
         NumberOfTestCases--;
@@ -63,15 +65,15 @@ int main() {
         cin >> Length >> Width;
 
         vector<vector<char>> stones(Length, vector<char>(Width));
-        vector<string> PathWords;
+        
+        PathWords.clear();
 
         for (int i = 0; i < Length; i++) {
             for (int j = 0; j < Width; j++) {
                 cin >> stones[i][j];
 
                 if (stones[i][j] == '@') {
-                    start[0] = i;
-                    start[1] = j;
+                    start = { i, j };
                 }
             }
         }
@@ -82,8 +84,6 @@ int main() {
             cout << word << " ";
 
         cout << endl;
-
-
     }
     
     return 0;
