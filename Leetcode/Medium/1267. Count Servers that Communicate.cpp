@@ -37,10 +37,3 @@ public:
         return counter;
     }
 };
-
-/*
-
-Solution 2:
-TC: O()
-MC: O()
-*/
