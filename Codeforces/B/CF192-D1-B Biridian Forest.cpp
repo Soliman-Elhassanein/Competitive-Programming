@@ -17,7 +17,7 @@ using namespace std;
 
 #define ll long long
 
-int DFS(vector<vector<char>> map, pair<int, int> End) {
+int BFS(vector<vector<char>> map, pair<int, int> End) {
 
 	vector<vector<char>> map_e(map.size(), vector<char>(map[0].size(), 0));
 	queue<pair<int, int>> current, next;
@@ -58,10 +58,8 @@ int DFS(vector<vector<char>> map, pair<int, int> End) {
 
 			current.pop();
 		}
-		if (flag) {
+		if (flag)
 			current.swap(next);
-			counter++;
-		}
 
 	} while (flag);
 
@@ -87,7 +85,7 @@ int main() {IOS;
 		}
 	}
 
-	cout << DFS(map, End);;
+	cout << BFS(map, End);;
 
 	return 0;
 }
