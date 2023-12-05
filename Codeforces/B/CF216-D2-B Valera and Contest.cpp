@@ -1,6 +1,7 @@
 /*
 Link: https://codeforces.com/contest/716/problem/B
 By Soliman Elhassanein
+Date: 5 Dec 2023
 
 TC: O(n)
 MC: O(1)
