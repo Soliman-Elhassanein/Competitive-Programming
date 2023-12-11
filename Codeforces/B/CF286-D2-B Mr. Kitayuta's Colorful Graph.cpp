@@ -1,10 +1,10 @@
 /*
-Link:
+Link: https://codeforces.com/contest/505/problem/B
 By Soliman Elhassanein
-Date:
+Date: 10 Dec 2023
 
-TC: O(   )
-MC: O(   )
+TC: O( m )
+MC: O( n*m )
 
 */
 
@@ -30,7 +30,7 @@ bool contains(queue<int> q, int value) {
 
 
 int BFS(vector<vector<vector<bool>>> map, int n, int m, int from, int to) {
-	int color, cur_ver, count = 0;
+	int color, cur_ver, count = 0, flag;
 	queue<int> q_c, q;
 
 	for (int i = 0; i < n; i++) {
@@ -51,7 +51,7 @@ int BFS(vector<vector<vector<bool>>> map, int n, int m, int from, int to) {
 		}
 
 		while (q.size()) {
-
+			flag = 0;
 			cur_ver = q.front();
 			q.pop();
 
@@ -59,6 +59,7 @@ int BFS(vector<vector<vector<bool>>> map, int n, int m, int from, int to) {
 
 				if (cur_ver == to) {
 					count++;
+					flag = 1;
 					break;
 				}
 				else if (!map[cur_ver][i][q_c.front()]) {
@@ -67,6 +68,10 @@ int BFS(vector<vector<vector<bool>>> map, int n, int m, int from, int to) {
 					map[i][cur_ver][q_c.front()] = true;
 				}
 			}
+
+			if (flag)
+				break;
+
 		}
 		
 		q_c.pop();
