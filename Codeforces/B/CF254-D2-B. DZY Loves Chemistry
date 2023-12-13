@@ -1,0 +1,84 @@
+/*
+Link: https://codeforces.com/contest/445/problem/B
+By Soliman Elhassanein
+Date: 13 Dec 2023
+
+TC: O( n^2 )
+MC: O( n * n)
+
+*/
+
+
+// Improving input/output efficiency
+#define IOS std::ios_base::sync_with_stdio(false);cin.tie(nullptr);cout.tie(nullptr)
+#define _SILENCE_CXX20_CISO646_REMOVED_WARNING
+#include <bits/stdc++.h>
+using namespace std;
+
+#define ll long long
+
+bool find(vector<int> c, ll value) {
+	for (int i = 0; i < c.size(); i++)
+		if (c[i] == value)
+			return true;
+
+	return false;
+}
+
+void del(vector<int>& c, ll value) {
+	c.erase(remove(c.begin(), c.end(), value), c.end());
+}
+
+ll dfs(vector<int>& l, vector<vector<int>> c, int i) {
+	ll counter = 0;
+	if (find(l, i)) {
+		del(l, i);
+		for (int j = 0; j < c[i].size(); j++) {
+			if (find(l, c[i][j])) {
+				counter += dfs(l, c, c[i][j]);
+				counter++;
+			}	
+		}
+	}
+	return counter;
+}
+
+
+int main() {
+	IOS;
+	
+	ll n, m, v1, v2, res = 0, m_v = 0;
+
+	cin >> n >> m;
+
+	vector<vector<int>> c(n);		
+
+	while (m--) {
+		cin >> v1 >> v2;
+		v1--; v2--;
+
+		c[v1].push_back(v2);
+		c[v2].push_back(v1);
+
+	}
+
+	for (int i = 0; i < n; i++) {
+		vector<int> l(n);
+		v1 = 0;
+		for (int i = 0; i < n; i++) {
+			l[i] = i;
+		}
+		v2 = i;
+		while (l.size()) {
+			v2 = (v2 + 1) % n;
+			v1 += dfs(l, c, v2);
+		}
+		m_v = max(m_v, v1);
+
+	}
+		
+
+	cout << fixed << (ll)pow(2, m_v);
+
+	return 0;
+}
