@@ -1,0 +1,61 @@
+'''
+Link: https://www.spoj.com/problems/ABCPATH/en/
+
+By Soliman Elhassanein
+
+TC: O(x * y)
+MC: O(x * y)
+
+Date: 09-Nov-2024
+'''
+
+# Initialize an empty Grid and list to store positions of 'A'
+grid = []
+As = []
+dp = []
+
+def check(pos):
+    i, j = pos
+    if dp[i][j] != -1:
+        return dp[i][j]
+    
+    dp[i][j] = 1  # The path length is at least 1 (the starting cell)
+    
+    # Explore all 8 adjacent cells
+    directions = [
+        (-1, -1), (-1, 0), (-1, 1),  # Up-Left, Up, Up-Right
+        (0, -1),          (0, 1),    # Left,       Right
+        (1, -1),  (1, 0), (1, 1)     # Down-Left, Down, Down-Right
+    ]
+    for dx, dy in directions:
+        ni, nj = i + dx, j + dy
+        if 0 <= ni < x and 0 <= nj < y:
+            # Check if the next character is consecutive
+            if ord(grid[ni][nj]) == ord(grid[i][j]) + 1:
+                dp[i][j] = max(dp[i][j], 1 + check([ni, nj]))
+    return dp[i][j]
+
+case = 0
+while True:
+    case += 1
+    grid = []
+    As = []
+    dp = []
+    x, y = map(int, input().split())
+    if x == 0 and y == 0:
+        break
+
+    # Read the grid and initialize dp
+    for i in range(x):
+        row = list(input().strip())
+        grid.append(row)
+        dp.append([-1] * y)
+        for index, v in enumerate(row):
+            if v == 'A':
+                As.append([i, index])
+    
+    m = 0
+    for v in As:
+        m = max(m, check(v))
+    
+    print(f"Case {case}: {m}")
